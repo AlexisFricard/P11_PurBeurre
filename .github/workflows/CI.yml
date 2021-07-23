@@ -20,6 +20,5 @@ jobs:
         with:
           context: .
           tags: user/test:latest
-      
-      - name: Launch app
+
         run: docker run -p 80:8000 user/test:latest 
