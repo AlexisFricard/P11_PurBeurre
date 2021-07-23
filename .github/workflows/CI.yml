@@ -19,4 +19,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: user/purbeurre:latest
+          tags: user/test:latest
+      
+      - name: Launch app
+        run: docker run -p 80:8000 user/test:latest 
