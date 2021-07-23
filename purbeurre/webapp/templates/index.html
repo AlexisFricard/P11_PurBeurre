@@ -1,0 +1,98 @@
+{% extends "template_ref.html" %}
+{% load static %}
+
+{% block body %}
+        <!-- Masthead-->
+        <header class="masthead" id="pagetop">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-10 align-self-end">
+                        <h1 class="text-white font-weight-bold">Du gras, oui, mais de qualité !</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-10 align-self-baseline">
+                        <div class="row align-self-baseline justify-content-center">
+                            <p class="text-white-75 font-weight-light">
+                                Trouvez un produit de substitution pour ceux que vous consommez tous les jours.
+                            </p>
+                            <form class="pt-3 container px-0 form-resp row align-items-baseline justify-content-center" method="post" action="/selection">
+                                {% csrf_token %}
+                                <input class="text-start form-control h-75 col-lg-5 mx-3 " autocomplete='off' type="text" name="user_text" placeholder="Rechercher">
+                                <button type="submit" name="wen_logo" class="col-lg-1 bg-trans">
+                                    <img src="{% static '' %}assets/img/logo/search.png" class="navbar-logo">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Section about -->
+        <section class="page-about bg-secondary" id="about">
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">Pourquoi Pur Beurre ?</h2>
+                        <hr class="divider divider-light" />
+                        <div class=" rad-2 bg-light py-3 px-3 my-2">
+                            <div class="row text-start justify-content-center">
+                                <div class="col-lg-10 mt-2 text-primary" id="proj_text">
+                                    <strong>
+                                        Abattus par les difficultés que rencontraient nos clients et nous mêmes à trouver des substituts 
+                                        aux produits peu nutritifs que nous consommions au quotidien. Amoureux de gastronomie française, nous nous sommes lancés un nouveau défi.
+                                        Permettre le remplacement d'un produit du quotidien par un autre plus 
+                                        sain en <a href="#pagetop">quelques clics... </a>
+                                    </strong>
+                                </div>
+                                <div class="row mt-5 col-lg-12 text-center">
+                                    <div class="w-50 text-center">
+                                        <img src="{% static '' %}assets/img/colette.png" class="profil-img">
+                                        <div class="mt-1 text-primary fs-6">
+                                            <strong>Colette</strong>
+                                        </div>
+                                    </div>
+                                    <div class="w-50 text-center">
+                                        <img src="{% static '' %}assets/img/remy.jpg" class="profil-img">
+                                        <div class="mt-1 text-primary fs-6">
+                                            <strong>Remy</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>                    
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="bg-rat" id="contact">
+            <div class="container-fluid mt-1 px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-7 text-center pt-5">
+                        <h2 class="text-light mt-0">Contactez-nous !</h2>
+                        <hr class="divider" />
+                        <p class="my-5 mb-5 text-white-75">
+                            <strong class="fs-6">
+                                Vous désirez d'avantages d'informations ? </br>
+                                N'hésitez pas à nous les demander par téléphone ou par email ! </br></br>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+                <strong class="fs-6">
+                    <div class="row pb-5 justify-content-center">
+                        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+                            <i class="fas fa-phone fa-3x mb-3"></i>
+                            <div class=" text-light">05.0X.XX.XX.XX</div>
+                        </div>
+                        <div class="col-lg-4 mr-auto text-center">
+                            <i class="fas fa-envelope fa-3x mb-3"></i>
+                            <a class="d-block text-light" href="mailto:FAKE@email.com">Send a email</a>
+                        </div>
+                    </div>
+                </strong>
+            </div>
+        </section>
+
+
+{% endblock %}

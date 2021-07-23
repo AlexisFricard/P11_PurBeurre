@@ -1,0 +1,119 @@
+{% extends "template_ref.html" %}
+{% load static %}
+{% block body %}
+<!-- block banner -->
+<header class="bg-account" >
+    <div class="container-fluid px-4 px-lg-5" id="account">
+        <div class="row gx-4 gx-lg-5 h-100 lign-items-center justify-content-center text-center">
+            <div class="ml6 text-secondary " id="anim-it">
+                <span class="text-wrapper">
+                    <span class="fs-2 letters">Mon compte</span>
+                    <hr class="divider my-2 " /></br>
+                </span>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+            <div class="container row justify-content-center" id="anim-it">
+                <div class="row text-start" id="box-img-profil">
+                    <div class="row h-mx-ct">
+                        {% if img == 0 %} 
+                        <img src="{% static '' %}assets/img/remy.jpg" class="position-center" id="profil-image">
+                        {% else %}
+                        <img src="{{media_location}}{{ img }}.png" class="position-center" id="profil-image">
+                        {% endif %}
+                    </div>
+                    <div id="modal" class="col-lg-6" style="display: none;">
+                        <div class="custom-box rad-2 py-2 px-1 ">
+                            <div class="row py-0">
+                                <button id="close-form" class="py-0 btn mx-auto">
+                                    <strong class="text-end text-secondary">
+                                        X
+                                    </strong>
+                                </button>
+                            </div>
+                            <span class="fs-6 text-secondary text-center">
+                                <div class="fs-6 text-start mt-2">
+                                    Choisissez un fichier <strong class="text-secondary">.png</strong> et renommez le ainsi:</br>
+                                </div>
+                                <div class="fs-6 text-center mt-2">
+                                    <strong class="text-secondary">
+                                        {{ user.first_name }}{{ user.last_name }}
+                                    </strong>.png
+                                </div>
+                            </span>
+                            <form class="fs-6 row btn text-white text-center" id='imgform' method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form }} 
+                                <button class="fs-6 mt-2 btn text-light bg-primary" type="submit">Changer ma photo</button>
+                            </form>
+                        </div>
+                    </div>
+                    <h3 class="my-3 text-secondary">
+                        {{ user.username}}
+                    </h3>
+                    <div class="my-0 col-lg-12">
+                        <button class="btn fs-7 text-light bg-primary" id='deluser'>Supprimer mon compte</button></br>
+                        <button class="btn mt-2 fs-7 text-light bg-primary" id="moduser">Modifier mon profil</button>
+                    </div>
+                    <div class="text-secondary">
+                        _____________
+                    </div>
+                    <div class="my-3 fs-5 text-secondary">
+                        <img src="{% static '' %}assets/img/logo/envelope.png" width="10%">
+                        <strong class="text-secondary fs-6">{{ user.email }}</strong>
+                    </div>
+                </div>
+                <div id="last_sub" class="mt-5 h-mx-ct row col-lg-4 text-center justify-content-center">
+                    <h3 class="col-lg-12 h-mx-ct my-3 text-secondary">
+                        Ma dernière substitution
+                    </h3>
+                    {% if products == 0 %}
+                    <div class="row bg-black-tran h-50 col-lg-10 text-center justify-content-center">
+                        <h4 class="pt-5 fs-6 col-lg-11 text-light">Pas encore de substitutions ?</h4>
+                        <form class="row align-items-baseline" method="post" action="/selection" style="height:3rem;">
+                            {% csrf_token %}
+                            <input class="text-start form-control h-75 w-75 mx-3 " autocomplete='off' type="text" name="user_text" placeholder="Rechercher">
+                            <button type="submit" name="wen_logo" class="col-lg-1 bg-trans">
+                                <img src="{% static '' %}assets/img/logo/search.png" class="navbar-logo">
+                            </button>
+                        </form>
+                    {% else %}
+                    <div class="row bg-black-tran h-mx-ct pb-3 col-lg-10 text-center justify-content-center">
+                        {% for product in products %}
+                        <div class="pt-3 col-lg-6 text-center text-light">
+                            <span class="text-center fs-7">
+                                {{ product.old.product_name }}
+                            </span>
+                        </div>
+                        <div class="pt-3 col-lg-6 text-center text-light">
+                            <span class="fs-7">
+                                {{ product.new.product_name }}
+                            </span>
+                        </div>
+                        <div class="pt-3 col-lg-6 text-center text-light">
+                            <span class="text-center">
+                                <img src="{{product.old.product_img }}" id="prod_img_acc">
+                                <img src="{% static '' %}assets/img/nutriscore/letnutr{{product.old.nutriscore }}.png" id="nutriscore-acc">
+                            </span>
+                        </div>
+                        <div class="pt-3 col-lg-6 text-center text-light">
+                            <span class="text-center">
+                                <img src="{{product.new.product_img }}" id="prod_img_acc">
+                                <img src="{% static '' %}assets/img/nutriscore/letnutr{{product.new.nutriscore }}.png" id="nutriscore-acc">
+                            </span>
+                        </div> 
+                        <div class="pt-3 col-lg-12 text-center text-light">
+                            <span class="text-center">
+                                <a class='col-lg-3' href="/result?query={{product.old.code}}&compare={{product.new.code}}">
+                                    <img src="{% static '' %}assets/img/logo/search.png" height="40px;">
+                                </a>
+                            </span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
