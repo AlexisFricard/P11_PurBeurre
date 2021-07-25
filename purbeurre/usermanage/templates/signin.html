@@ -1,0 +1,44 @@
+{% extends "template_ref.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- <section class="page-section bg-cookie py-sign" id="signin"> -->
+<!-- <section class="bg-cookie r-1 py-sign" id="signin"> -->
+<header class="bg-cookie" id="signin">
+            <div class="text-white bg-black-tran justify-content-center" id="div-signin">
+                <div class="ml6 text-secondary text-center" id="anim-it">
+                    <span class="text-wrapper">
+                        <span class="fs-5 letters">Connectez vous à Pur Beurre !</span>
+                    </span>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+                <hr class="divider my-1" />
+                <form method="post" action="" class="mt-2 row px-3 py-3 rad-2 justify-content-center text-center" id="form-signin">
+                    {% csrf_token %}
+                    <label class="col-lg-10 text-start text-secondary fs-7" for="exampleFirstName"><strong>Pseudo ou adresse email</strong></label></br>
+                    <input autocomplete='off' type="text" name="username" class="col-lg-10 form-control  py-1" placeholder=""/>
+                    <label class="col-lg-10 pt-3 text-start text-secondary fs-7" for="exampleInputPassword1"><strong>Mot de passe</strong></label></br>
+                    <input autocomplete='off' type="password" name="password" class="col-lg-10 form-control" placeholder=""/>
+                    {% if id == 0 %}
+                    <div class="bg-false col-lg-10 text-center" id="wrong_id">
+                        <strong class="mt-2">
+                            Identifiants invalides
+                        </strong>
+                    </div>
+                    {% endif %}
+                    <button class="col-lg-3 btn-lg btn mt-3 text-light bg-trans fs-3" type="submit" name="signin_btn"><img src="{% static '' %}assets/img/logo/signin.png" class="navbar-logo"></button>
+                </form>
+                <div class="text-center">
+                    <strong>
+                        Vous n'avez pas de compte ?</br>
+                        <a class="text-secondary" href="/signup">Inscrivez-vous !</a></br>
+                        </br>
+                    </strong>
+                </div>
+                {% if id == 0 %}
+                <a type="submit" class="row mx-1 px-5 pb-3 fs-7 text-start text-secondary" id="pw-reset" href="password-reset">Identifiants oubliés ?</a>
+                {% endif %}
+            </div>
+</header>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "template_ref.html" %}
+{% load static %}
+
+
+{% block body %}
+
+<!-- block banner -->
+<header class="bg-myfood">
+    <div class="container-fluid px-4 px-lg-5" id="myfood">
+        <div class="row gx-4 gx-lg-5 h-100 lign-items-center justify-content-center text-center">
+            <div class="ml6 text-secondary " id="anim-it">
+                <span class="text-wrapper">
+                    <span class="fs-2 letters">Mes aliments</span>
+                    <hr class="divider my-2 " /></br>
+                </span>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+            
+            <div id="mainTab" class="mt-5 container-fluid justify-content-center h-75 row bg-black-tran">
+                {% if not substitutions %}
+                <div class="row justify-content-center">
+                    <h4 class="pt-5 col-lg-10 text-light">Vous avez enregistré 0 substitution</h4>
+                    <form class="row my-3 w-50 align-items-baseline justify-content-center" method="post" action="/selection" style="height:5rem;">
+                        {% csrf_token %}
+                        <input class="text-start col-lg-8 w-75 form-control h-50 mx-3 " autocomplete='off' type="text" name="user_text" placeholder="Rechercher">
+                        <button type="submit" name="wen_logo" class="col-lg-1 bg-trans">
+                            <img src="{% static '' %}assets/img/logo/search.png" class="navbar-logo">
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="row my-2  h-mx-ct text-light text-center justify-content-center">
+                    <a class='col-lg-1' href="">
+                    </a>
+                    <div class='text-center text-secondary col-lg-4' id="myfoodResp">
+                        Ancien(s) produit(s)
+                    </div>
+                    <div class='col-lg-2 text-center text-secondary' id="myfoodResp">
+                        Nutriscore
+                    </div>
+                    <div class='col-lg-4 text-secondary text-center'>
+                        Substitut(s)
+                    </div>
+                    <a class='col-lg-1' href="">
+                    </a>
+                </div>
+                <div id="table" class="px-0">
+                    {% for product in substitutions %}
+                    <div class="row my-1 py-1 h-mx-ct text-light text-center justify-content-center">
+                        <a class='col-lg-1 px-0' href="/result?query={{product.old.code}}&compare={{product.new.code}}">
+                            <img src="{% static '' %}assets/img/logo/search.png" id="nutr">
+                        </a>
+                        <span class='mt-1 text-center col-lg-4' id="myfoodResp">
+                            {{ product.old.product_name}} 
+                        </span>
+                        <div class='row col-lg-2 text-secondary justify-content-center' id="myfoodResp">
+                            <img id="nutr" src="{% static '' %}assets/img/nutriscore/letnutr{{product.old.nutriscore }}.png" class="px-0 col-lg-3">
+                            <img id="nutr" src="{% static '' %}assets/img/nutriscore/letnutr{{product.new.nutriscore }}.png" class="px-0 col-lg-3">
+                        </div>
+                        <span class='mt-1 col-lg-4 text-center' id="NewProd">
+                            {{ product.new.product_name}}
+                        </span>
+                        <a class='col-lg-1 px-0' href="/del_sub?query={{product.old.code}},{{product.new.code}}">
+                            <img src="{% static '' %}assets/img/logo/delit.png" id="nutr">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
