@@ -12,5 +12,6 @@ jobs:
      run: |
        docker build -t purbeurre:vtest .
        docker run \
-        --env PB_SECRET_KEY=${{ secrets.PB_SECRET_KEY }} DB_NAME=${{ secrets.DB_NAME }} \
+        --env PB_SECRET_KEY=${{ secrets.PB_SECRET_KEY }}  \
+        --env DB_NAME=${{ secrets.DB_NAME }} \
         purbeurre:vtest sh -c "python -m pytest"
