@@ -20,4 +20,6 @@ jobs:
         --env DB_PORT=${{ secrets.DB_PORT }} \
         --env ACCESS_KEY_ID=${{ secrets.ACCESS_KEY_ID }} \
         --env SECRET_ACCESS_KEY=${{ secrets.SECRET_ACCESS_KEY }} \
+        --env STATIC_BUCKET_NAME=app-purbeurre \
+        --env S3_REGION_NAME=fr-par \
         purbeurre:vtest sh -c "python -m pytest"
