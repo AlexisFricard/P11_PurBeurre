@@ -15,4 +15,5 @@ jobs:
         --env PB_SECRET_KEY=${{ secrets.PB_SECRET_KEY }}  \
         --env DB_NAME=${{ secrets.DB_NAME }} \
         --env DB_USER=${{ secrets.DB_USER }} \
+        --env DB_PWD=${{ secrets.DB_PWD }} \
         purbeurre:vtest sh -c "python -m pytest"
