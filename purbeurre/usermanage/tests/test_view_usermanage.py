@@ -53,7 +53,7 @@ class TemplateTest(TestCase):
         """ TEST 3 """
         request = RequestFactory().post("/signin")
         request.POST = {
-            'username': 'AlexisF',
+            'username': 'dev-purbeurre',
             'password': os.getenv('DB_PWD'),
         }
 
