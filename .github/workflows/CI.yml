@@ -1,17 +1,24 @@
 name: ci
-
 on: push
 
-jobs:  
+jobs:       
   build:
    environment: env
    runs-on: ubuntu-latest
-   
+
    steps:    
    - uses: actions/checkout@v1
-   - name: Test code
+   - name: Build and test with Docker
      run: |
-        python -m venv .env
-        pip install -r requirements.txt
-        .env/scripts/activate
-        python -m pytest
+       docker build -t purbeurre:vtest .
+       docker run purbeurre:vtest sh -c "python -m pytest"
+     env:
+       PB_SECRET_KEY: ${{ secrets.PB_SECRET_KEY }}
+       DB_NAME: ${{ secrets.DB_NAME }}
+       DB_USER: ${{ secrets.DB_USER }}
+       DB_PWD: ${{ secrets.DB_PWD }}
+       DB_HOST: ${{ secrets.DB_HOST }}
+       DB_PORT: ${{ secrets.DB_PORT }}
+       S3_REGION_NAME: ${{ secrets.S3_REGION_NAME }}
+       STATIC_BUCKET_NAME: ${{ secrets.STATIC_BUCKET_NAME }}
+       STATIC_ENDPOINT_URL: ${{ secrets.STATIC_ENDPOINT_URL }}
