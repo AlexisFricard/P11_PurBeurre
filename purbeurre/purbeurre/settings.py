@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('PB_SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*')
 
@@ -118,13 +118,15 @@ STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, AWS_LOCATION)
 STATIC_ROOT = 'static/'
 
 PUBLIC_MEDIA_LOCATION = 'media/'
-MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/{PUBLIC_MEDIA_LOCATION}'
+MEDIA_URL = (
+    f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/{PUBLIC_MEDIA_LOCATION}'
+)
 DEFAULT_FILE_STORAGE = 'usermanage.storage_backends.PublicMediaStorage'
 
 # Email settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.getenv('GMAIL')
+EMAIL_HOST_USER = 'purbeurrenoreply@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('MDP_GMAIL')
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -141,7 +141,11 @@
                                                 <div class="col-lg-3 h-100 px-0">
                                                     <img class="mt-3" src="{{ sub.product_img }}" alt="image produit" id='prod_img'></br>
                                                     <img src="{% static '' %}assets/img/nutriscore/nutr{{sub.nutriscore}}.png" class="px-1 my-2" id="nutri-ban"></br>
-                                                    <a id="btn-res" href="save?query={{sub.code}},{{prod.code}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% if user.is_authenticated %}
+                                                    <a id="btn-res" href="/save?query={{sub.code}},{{prod.code}}&matching={{matching}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% else %}
+                                                    <a id="btn-res" href="/signin?query={{sub.code}},{{prod.code}}&matching={{matching}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% endif %}
                                                     <a id="btn-res" href="/result?query={{prod.code}}&compare={{sub.code}}" class="fs-7 text-light btn bg-primary">Comparer</a>
                                                 </div>
                                             {% endfor %}
@@ -153,7 +157,11 @@
                                                 <div class="col-lg-3 h-100 px-0">
                                                     <img class="mt-3" src="{{ sub.product_img }}" alt="image produit" id='prod_img'></br>
                                                     <img src="{% static '' %}assets/img/nutriscore/nutr{{sub.nutriscore}}.png" class="px-1 my-2" id="nutri-ban"></br>
-                                                    <a id="btn-res" href="save?query={{sub.code}},{{prod.code}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% if user.is_authenticated %}
+                                                    <a id="btn-res" href="/save?query={{sub.code}},{{prod.code}}&matching={{matching}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% else %}
+                                                    <a id="btn-res" href="/signin?query={{sub.code}},{{prod.code}}&matching={{matching}}" class="fs-7 text-light btn bg-primary">Sauvegarder</a></br>
+                                                    {% endif %}
                                                     <a id="btn-res" href="/result?query={{prod.code}}&compare={{sub.code}}" class="fs-7 text-light btn bg-primary">Comparer</a>
                                                 </div>
                                             {% endfor %}
@@ -170,10 +178,22 @@
                                     </button>
                                 </div>
                             </div>
-                        {% else %}
-                        <div class="col-lg-12 px-0">
-                                Pas de substituts
-                        {% endif %}
+                            {% else %}
+                            <div class="fs-6 col-lg-12 px-0">
+                                    Oh, nous n'avons pas trouver de substituts..</br>
+                                    {% if categ_splited %}
+                                        Pourriez vous peut-être affiner la categorie pour nous ?</br>
+                                        <a class="fs-6 text-secondary" href="result?query={{prod.code}}&matching={{ categ_splited.1 }}">
+                                            {{ categ_splited.1 }}
+                                        </a> || 
+                                        <a class="fs-6 text-secondary" href="result?query={{prod.code}}&matching={{ categ_splited.2 }}">
+                                            {{ categ_splited.2 }}
+                                        </a> || 
+                                        <a class="fs-6 text-secondary" href="result?query={{prod.code}}&matching={{ categ_splited.3 }}">
+                                            {{ categ_splited.3 }}
+                                        </a>
+                                    {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                     <!-- COMPARE-->
@@ -298,11 +318,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="link-to-res">
-            <a class="fs-6 text-secondary" href="/" target="_blank">
-                Je veux un substitut qui colle plus à mon produit de base
-            </a>
         </div>
     </header>
 {% endif %}

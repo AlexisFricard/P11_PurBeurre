@@ -8,7 +8,9 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
 
-from django.conf.urls import handler400, handler403, handler404, handler500
+from django.conf.urls import (
+    handler400, handler403, handler404, handler500
+)
 
 
 urlpatterns = [
@@ -16,8 +18,8 @@ urlpatterns = [
     path('', include('webapp.urls')),
     path('', include('usermanage.urls')),
     path('password-reset/',
-        auth_views.PasswordResetView.as_view(
-        template_name='password_reset_form.html'
+        auth_views.PasswordResetView.as_view(       # noqa
+            template_name='password_reset_form.html'
         ),
         name='password_reset'),
     path('password-reset/done/',
@@ -46,8 +48,7 @@ urlpatterns += static(
     document_root=settings.STATIC_ROOT
 )
 
-
-handler404 = 'usermanage.views.error_404'
-handler400 = 'usermanage.views.error_400'
-handler403 = 'usermanage.views.error_403'
-handler500 = 'usermanage.views.error_500'
+handler404 = 'usermanage.views.error_404'  # noqa
+handler400 = 'usermanage.views.error_400'  # noqa
+handler403 = 'usermanage.views.error_403'  # noqa
+handler500 = 'usermanage.views.error_500'  # noqa

@@ -1,4 +1,7 @@
 import requests
+from textblob import TextBlob
+
+from webapp.modules.tools.clean_sentence import clean_accents, clean_space
 
 
 def html_categorie_from_product_url(url):
@@ -8,10 +11,10 @@ def html_categorie_from_product_url(url):
 
     if '<label style="display:inline;font-size:1rem;">' in html:
 
-        text_stage_1 = html.find('<label style="display:inline;font-size:1rem;">')
-
         # REMOVE BEFORE <label ...
-        start_point = html.find('<label style="display:inline;font-size:1rem;">')
+        start_point = html.find(
+            '<label style="display:inline;font-size:1rem;">'
+        )
         text_1 = html[start_point:]
 
         # REMOVE AFTER </label> INCLUDE
@@ -24,4 +27,11 @@ def html_categorie_from_product_url(url):
         txt_to_replace = text_2[start_point:end_point]
         text = text_2.replace(txt_to_replace, "").strip()
 
-        return(text)
+        # TRANSLATE IN FRENCH
+        blob = TextBlob(f'{text}')
+        text = blob.translate(to='fr')
+        if " " in text:
+            text = clean_space(text, "-").lower()
+            text = clean_accents(text)
+
+        return text

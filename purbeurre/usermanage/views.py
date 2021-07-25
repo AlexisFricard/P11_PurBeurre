@@ -3,7 +3,6 @@ VIEWS FILE FOR MANAGE USER
 
 PEP8 exeptions: (flake8) E722 - Do not use bare 'except'
 """
-import os
 import requests
 
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -16,7 +15,6 @@ from django.contrib.auth.models import User
 from purbeurre.settings import MEDIA_URL
 
 from webapp.models import Save
-from usermanage.models import Image
 from usermanage.forms import RegistrationForm, ImageForm
 from webapp.modules.tools.builder import build_response
 
@@ -32,10 +30,6 @@ def signin(request):
 
     if code:
         from_result = 1
-    
-    # IF USER IS AUTH, REDIRECT TO account.html - "/account"
-    if request.user.is_authenticated:
-        return redirect("account")
 
     # METHOD TO CONNECT USER
     data = {"id": 1}
@@ -58,14 +52,14 @@ def signin(request):
         elif form is not None:
             if form.is_valid():
                 login(request, form.user_cache)
-            
+
         if request.user.is_authenticated:
             # REDIRECT TO ACCOUNT IF DIDN'T COME FROM /result
             if not from_result:
                 return redirect("index")
             # REDIRECT TO RESULT IF IT IS
             elif from_result:
-                return HttpResponseRedirect(f"/result?query={code}")
+                return HttpResponseRedirect(f"/save?query={code}")
         # IF FORM IS NOT VALID
         # TO ADD WARNINGS "wrong_id"
         data["id"] = 0
@@ -79,7 +73,7 @@ def signin(request):
 
 def signup(request):
     data = {"form": RegistrationForm(), "mail": 1}
-    
+
     if request.method == "POST":
 
         cgu_accepted = request.POST.get('scales')
@@ -87,8 +81,9 @@ def signup(request):
         data["address"] = request.POST.get('mail')
         if cgu_accepted:
             if len(request.POST.get('password')) >= 8:
-                if request.POST.get('password') == request.POST.get('password2'):
-
+                pwd1 = request.POST.get('password')
+                pwd2 = request.POST.get('password2')
+                if pwd1 == pwd2:
                     if len(request.POST.get('username')) >= 2:
                         try:
                             User.objects.create_user(
@@ -99,7 +94,7 @@ def signup(request):
                                 last_name=request.POST.get('last_name')
                             )
                             return redirect("signin")
-                        except:
+                        except:     # noqa
                             data['status'] = 'fail_to_created_user'
                             return render(request, 'signup.html', data)
                     else:
@@ -117,10 +112,17 @@ def signup(request):
         mail = request.GET.get('mail')
         if mail:
             try:
-                is_exist = User.objects.get(email=mail)
-                data = {"form": RegistrationForm(), "mail": 1, "exist": 1}
-            except:
-                data = {"form": RegistrationForm(), "mail": 0, 'address': f'{mail}'}
+                data = {
+                    "form": RegistrationForm(),
+                    "mail": 1,
+                    "exist": 1
+                }
+            except:     # noqa
+                data = {
+                    "form": RegistrationForm(),
+                    "mail": 0,
+                    'address': f'{mail}'
+                }
 
     return render(request, 'signup.html', data)
 
@@ -139,7 +141,9 @@ def account(request):
     # METHOD TO DISPLAY ACCOUNT
     if request.method == 'GET':
         # METHOD TO DISPLAY BLOC LAST SUBSTITUTE
-        products = Save.objects.filter(user=request.user.email).order_by('-save_id')
+        products = (
+            Save.objects.filter(user=request.user.email).order_by('-save_id')
+        )
         list_substitution = []
         if len(products) == 0:
             list_substitution = 0
@@ -149,9 +153,6 @@ def account(request):
                 # products = products[0:3]
                 product = products[0]
             dict_product = {}
-
-            """ TO DISPLAY MORE ONE 
-            for product in products: """
             prod_code = product.product_substitued
             prod_data = build_response(prod_code, "code")
             sub_code = product.substitute
@@ -167,7 +168,7 @@ def account(request):
             is_exist = username
         else:
             is_exist = 0
-        
+
         # RETURN
         data = {
             "form": ImageForm(),
@@ -185,9 +186,14 @@ def account(request):
             # IF USER SAID GOOD NAME
             if f"{username}.png" == form.instance.image:
                 form.save()
-            return render(request, 'account.html', {"media_location": MEDIA_URL, "img": username})
+            return render(request, 'account.html', {
+                "media_location": MEDIA_URL,
+                "img": username
+            })
         else:
-            return render(request, 'account.html', {"media_location": MEDIA_URL})
+            return render(request, 'account.html', {
+                "media_location": MEDIA_URL
+            })
 
 
 @login_required
@@ -214,15 +220,17 @@ def modif_user(request):
         if request.POST.get('password') != "":
             user.password = request.POST.get('password')
         user.save()
-        return HttpResponseRedirect("/signin")
+        return HttpResponseRedirect("/account")
 
 
 def pdf_view(request):
     file = request.GET.get('query')
 
-    with open(f'webapp/static/assets/media/pdf/{file}.pdf', 'rb') as pdf:
+    with open(f'/static/assets/media/pdf/{file}.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=conditions_générales_dutilisations.pdf'
+        response['Content-Disposition'] = (
+            'inline;filename=conditions_générales_dutilisations.pdf'
+        )
         return response
 
 

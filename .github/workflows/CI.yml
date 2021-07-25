@@ -21,4 +21,5 @@ jobs:
           context: .
           tags: user/test:latest
 
-        run: docker run -p 80:8000 user/test:latest 
+      - name: Test for prod
+        run: python -m pytest

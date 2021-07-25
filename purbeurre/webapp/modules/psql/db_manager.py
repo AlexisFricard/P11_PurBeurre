@@ -27,6 +27,7 @@ def add_data(prod_dict):
         salt_100g=prod_dict.get("salt_100g"),
         )
 
+
 def save_research(save_list):
 
     get_allready_registred = Save.objects.filter(
@@ -45,6 +46,7 @@ def save_research(save_list):
         substitute=save_list[0],
         product_substitued=save_list[1],
     )
+
 
 def del_research(save_list):
 
