@@ -7,11 +7,11 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('PB_SECRET_KEY')
+SECRET_KEY = os.environ.get('PB_SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*')
 
 # Application definition
 INSTALLED_APPS = [
@@ -60,11 +60,11 @@ WSGI_APPLICATION = 'purbeurre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PWD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT')
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PWD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT')
     }
 }
 
@@ -96,11 +96,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # AWS SETTINGS
-AWS_ACCESS_KEY_ID = os.getenv('ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = os.environ.get('ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('SECRET_ACCESS_KEY')
 
-AWS_STORAGE_BUCKET_NAME = os.getenv('STATIC_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.getenv('S3_REGION_NAME')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('STATIC_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('S3_REGION_NAME')
 AWS_S3_HOST = 's3.%s.scw.cloud' % (AWS_S3_REGION_NAME,)
 AWS_S3_ENDPOINT_URL = 'https://%s' % (AWS_S3_HOST,)
 AWS_S3_OBJECT_PARAMETERS = {
@@ -127,6 +127,6 @@ DEFAULT_FILE_STORAGE = 'usermanage.storage_backends.PublicMediaStorage'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'purbeurrenoreply@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv('MDP_GMAIL')
+EMAIL_HOST_USER = os.environ.get('GMAIL')
+EMAIL_HOST_PASSWORD = os.environ.get('MDP_GMAIL')
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
