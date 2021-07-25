@@ -18,4 +18,6 @@ jobs:
         --env DB_PWD=${{ secrets.DB_PWD }} \
         --env DB_HOST=${{ secrets.DB_HOST }} \
         --env DB_PORT=${{ secrets.DB_PORT }} \
+        --env ACCESS_KEY_ID=${{ secrets.ACCESS_KEY_ID }} \
+        --env SECRET_ACCESS_KEY=${{ secrets.SECRET_ACCESS_KEY }} \
         purbeurre:vtest sh -c "python -m pytest"
