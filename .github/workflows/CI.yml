@@ -16,4 +16,6 @@ jobs:
         --env DB_NAME=${{ secrets.DB_NAME }} \
         --env DB_USER=${{ secrets.DB_USER }} \
         --env DB_PWD=${{ secrets.DB_PWD }} \
+        --env DB_HOST=${{ secrets.DB_HOST }} \
+        --env DB_PORT=${{ secrets.DB_PORT }} \
         purbeurre:vtest sh -c "python -m pytest"
