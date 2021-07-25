@@ -12,12 +12,10 @@ jobs:
      run: |
        docker build -t purbeurre:vtest .
        docker run \
-        --env PB_SECRET_KEY=${{ secrets.PB_SECRET_KEY }}  \
+        --env PB_SECRET_KEY=${{ secrets.PB_SECRET_KEY }} \
         --env DB_NAME=${{ secrets.DB_NAME }} \
         --env DB_USER=${{ secrets.DB_USER }} \
         --env DB_PWD=${{ secrets.DB_PWD }} \
         --env DB_HOST=${{ secrets.DB_HOST }} \
         --env DB_PORT=${{ secrets.DB_PORT }} \
-        --env S3_REGION_NAME=${{ secrets.S3_REGION_NAME }} \
-        --env STATIC_BUCKET_NAME=${{ secrets.STATIC_BUCKET_NAME }} \ 
         purbeurre:vtest sh -c "python -m pytest"
