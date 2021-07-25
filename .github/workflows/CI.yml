@@ -18,4 +18,7 @@ jobs:
         --env DB_PWD=${{ secrets.DB_PWD }} \
         --env DB_HOST=${{ secrets.DB_HOST }} \
         --env DB_PORT=${{ secrets.DB_PORT }} \
+        --env S3_REGION_NAME=${{ secrets.S3_REGION_NAME }} \
+        --env STATIC_BUCKET_NAME=${{ secrets.STATIC_BUCKET_NAME }} \
+        --env STATIC_ENDPOINT_URL=${{ secrets.STATIC_ENDPOINT_URL }} \ 
         purbeurre:vtest sh -c "python -m pytest"
