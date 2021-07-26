@@ -97,7 +97,7 @@ class TemplateTest(TestCase):
         assert view.url == "/accounts/login/?next=/save"
 
         """ TEST 2 - WITH CONNECTED USER """
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
         view = save(request)
         # 302 - REDIRECT TO MyFood/
         assert view.status_code == 302
@@ -114,7 +114,7 @@ class TemplateTest(TestCase):
     def test_del_sub(self):
         request = RequestFactory().get("/del_sub")
         request.GET = {"query": "3330720662002,4028491400907"}
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
         view = del_sub(request)
 
         assert view.status_code == 302
@@ -122,7 +122,7 @@ class TemplateTest(TestCase):
 
     def test_my_food(self):
         request = RequestFactory().get("/del_sub")
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
 
         view = myfood(request)
         assert view.status_code == 200

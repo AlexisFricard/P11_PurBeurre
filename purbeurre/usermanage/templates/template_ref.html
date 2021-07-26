@@ -31,26 +31,26 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <form class="row w-50 px-0 mx-1 align-items-baseline justify-content-center" method="post" action="/selection">
+                        <form class="row w-form-resp px-0 mx-1 align-items-baseline" method="post" action="/selection">
                             {% csrf_token %}
-                            <input class="text-start form-control col-lg-8 mx-1 " autocomplete='off' type="text" name="user_text" placeholder="Rechercher">
+                            <input class="text-start form-control w-form-top mx-1 " autocomplete='off' type="text" name="user_text" placeholder="Rechercher">
                             <button type="submit" name="wen_logo" class="col-lg-3 bg-trans mx-1 px-0">
                                 <img src="{% static 'assets/img/logo/search.png' %}" class="navbar-logo">
                             </button>
                         </form>
                         {% if user.is_authenticated %}
                         <div class="w-50 row px-0">
-                            <li class="nav-item box-resp-logo mx-1">
+                            <li class="nav-item box-resp-logo mx-1 px-0">
                                 <a class="nav-link py-0" href="/account">
                                     <img src="{% static 'assets/img/logo/myaccount.png' %}" class="navbar-logo">
                                 </a>
                             </li>
-                            <li class="nav-item box-resp-logo mx-1">
+                            <li class="nav-item box-resp-logo mx-1 px-0">
                                 <a class="nav-link py-0" href="/myfood" alt="Mes aliments" >
                                     <img src="{% static 'assets/img/logo/myfood.png' %}" class="navbar-logo">
                                 </a>
                             </li>
-                            <li class="nav-item box-resp-logo mx-1">
+                            <li class="nav-item box-resp-logo mx-1 px-0">
                                 <a class="nav-link py-0" href="/log_out" id="disconnected">
                                     <img src="{% static 'assets/img/logo/logout.png' %}" class="navbar-logo">
                                 </a>
