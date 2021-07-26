@@ -148,6 +148,10 @@ header.bg-legal, .bg-legal {
   width: 65% !important;
   padding-left: 0.5rem
 }
+.w-form-resp {
+  width: 50%;
+  justify-content: center;
+}
 @media (min-width: 360px) and (max-width: 767.99px) {
   #box-product {
     width: 50%;
@@ -1150,5 +1154,8 @@ header.bg-legal, .bg-legal {
       background-color: #f4623a;
       opacity: 1;
   }
-      
+  .w-form-resp {
+    width: 75%;
+    justify-content: end;
   }
+}
