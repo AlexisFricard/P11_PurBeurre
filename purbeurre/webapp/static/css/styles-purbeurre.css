@@ -208,7 +208,7 @@ header.bg-legal, .bg-legal {
 
   #nutriscore-comp {
     height: 3rem;
-    position: absolute;
+    position: relative;
     right: 4%;
   }
   #navbarResponsive {
