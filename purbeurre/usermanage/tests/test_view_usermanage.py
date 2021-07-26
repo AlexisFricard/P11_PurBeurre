@@ -53,7 +53,7 @@ class TemplateTest(TestCase):
         """ TEST 3 """
         request = RequestFactory().post("/signin")
         request.POST = {
-            'username': 'AlexisF',
+            'username': 'dev-purbeurre',
             'password': os.getenv('DB_PWD'),
         }
 
@@ -86,7 +86,7 @@ class TemplateTest(TestCase):
     def test_log_out(self):
 
         request = RequestFactory().post("/log_out")
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
 
         middleware = SessionMiddleware()
         middleware.process_request(request)
@@ -180,16 +180,16 @@ class TemplateTest(TestCase):
     def test_account(self):
 
         request = RequestFactory().get("/account")
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
         view = account(request)
         assert view.status_code == 200
 
     def test_modif_user(self):
 
         request = RequestFactory().post("/modif_user")
-        request.user = User.objects.get(username="AlexisF")
+        request.user = User.objects.get(username="dev-purbeurre")
         request.POST = {
-            "username": "AlexisF",
+            "username": "dev-purbeurre",
             "password": os.getenv('DB_PWD'),
             "email": "a.fricardpro@gmail.com",
             "first_name": "Alexis",
